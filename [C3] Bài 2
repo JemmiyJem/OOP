@@ -1,0 +1,63 @@
+#include <iostream>
+
+using namespace std;
+
+class ANIMAL {
+protected:
+    int age;
+    float weight;
+    int sex;
+
+public:
+    ANIMAL() : age(0), weight(0.0), sex(0) {}
+
+    ~ANIMAL() {}
+
+    void set(int a, float w, int s) {
+        age = a;
+        weight = w;
+        sex = s;
+    }
+
+    void an() {
+        cout << "Con vat dang an" << endl;
+    }
+
+    void print() {
+        cout << "Tuoi: " << age << endl;
+        cout << "Can nang: " << weight << endl;
+        cout << "Gioi tinh: " << (sex == 0 ? "Male" : "Female") << endl;
+    }
+};
+
+class ELEPHANT : public ANIMAL {
+private:
+    int root;
+
+public:
+    ELEPHANT() : ANIMAL(), root(0) {}
+
+    ~ELEPHANT() {}
+
+    void set(int a, float w, int s, int r) {
+        ANIMAL::set(a, w, s);
+        root = r;
+    }
+
+    void an() {
+        cout << "Voi dang an co" << endl;
+    }
+
+    void print() {
+        ANIMAL::print();
+        cout << "Xuat xu: " << (root == 0 ? "Chau A" : "Chau Phi") << endl;
+    }
+};
+
+int main() {
+    ELEPHANT voi;
+    voi.set(5, 4000.5, 1, 1);
+    voi.print();
+    voi.an();
+    return 0;
+}
