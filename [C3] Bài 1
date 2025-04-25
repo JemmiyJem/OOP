@@ -1,0 +1,60 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+class TamGiac {
+protected:
+    double a, b, c;
+
+public:
+    TamGiac(double a = 0, double b = 0, double c = 0) : a(a), b(b), c(c) {}
+
+    double tinhChuVi() {
+        return a + b + c;
+    }
+
+    double tinhDienTich() {
+        double p = tinhChuVi() / 2;
+        return sqrt(p * (p - a) * (p - b) * (p - c));
+    }
+
+    void nhap() {
+        cout << "Nhap do dai 3 canh cua tam giac: ";
+        cin >> a >> b >> c;
+    }
+
+    void xuat() {
+        cout << "Tam giac co 3 canh: " << a << ", " << b << ", " << c << endl;
+        cout << "Chu vi: " << tinhChuVi() << endl;
+        cout << "Dien tich: " << tinhDienTich() << endl;
+    }
+};
+
+class TamGiacDeu : public TamGiac {
+public:
+    TamGiacDeu(double canh = 0) : TamGiac(canh, canh, canh) {}
+
+    void nhap() {
+        cout << "Nhap do dai canh cua tam giac deu: ";
+        cin >> a;
+        b = c = a;
+    }
+
+    double tinhDienTich() {
+        return (sqrt(3) * a * a) / 4;
+    }
+
+    void xuat() {
+        cout << "Tam giac deu co canh: " << a << endl;
+        cout << "Chu vi: " << tinhChuVi() << endl;
+        cout << "Dien tich: " << tinhDienTich() << endl;
+    }
+};
+
+int main() {
+    TamGiacDeu tgd;
+    tgd.nhap();
+    tgd.xuat();
+    return 0;
+}
