@@ -1,0 +1,79 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+class Mang {
+private:
+    int data[100];
+    int n;
+public:
+    Mang() : n(0) {}
+
+    void nhap() {
+        cin >> n;
+        for (int i = 0; i < n; ++i) {
+            cin >> data[i];
+        }
+    }
+
+    void xuat() {
+        for (int i = 0; i < n; ++i) {
+            cout << data[i] << " ";
+        }
+    }
+
+    int getSoPhanTu() const {
+        return n;
+    }
+
+    int getGiaTri(int i) const {
+        return (i >= 0 && i < n) ? data[i] : -1;
+    }
+
+    void themPhanTu(int value) {
+        if (n < 100) {
+            data[n++] = value;
+        }
+    }
+
+    void xoaPhanTu(int index) {
+        if (index >= 0 && index < n) {
+            for (int i = index; i < n - 1; ++i) {
+                data[i] = data[i + 1];
+            }
+            --n;
+        }
+    }
+
+    void huyMang() {
+        n = 0;
+    }
+
+    void sapXepMang() {
+        sort(data, data + n);
+    }
+
+    int timPhanTuNhoNhat() const {
+        if (n > 0) {
+            return *min_element(data, data + n); // Trả về phần tử nhỏ nhất
+        } else {
+            return -1; // Mảng rỗng
+        }
+    }
+
+    int tinhTongMang() const {
+        int sum = 0;
+        for (int i = 0; i < n; ++i) {
+            sum += data[i];
+        }
+        return sum;
+    }
+};
+
+int main() {
+    Mang m;
+    m.nhap();
+    m.sapXepMang();
+    m.xuat();
+    return 0;
+}
