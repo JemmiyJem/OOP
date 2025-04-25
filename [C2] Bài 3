@@ -1,0 +1,65 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Point {
+public:
+    int x, y;
+
+    void set(int a = 0, int b = 0) {
+        x = a;
+        y = b;
+    }
+
+    friend ostream &operator<<(ostream &out, const Point &pt) {
+        out << "(" << pt.x << ", " << pt.y << ")";
+        return out;
+    }
+
+    friend istream &operator>>(istream &in, Point &pt) {
+        in >> pt.x >> pt.y;
+        return in;
+    }
+};
+
+class Line {
+private:
+    Point A, B;
+
+public:
+    void set(int x1, int y1, int x2, int y2) {
+        A.set(x1, y1);
+        B.set(x2, y2);
+    }
+
+    friend istream &operator>>(istream &in, Line &line) {
+        in >> line.A >> line.B;
+        return in;
+    }
+
+    float tinhDoDai() {
+        return sqrt(pow(B.x - A.x, 2) + pow(B.y - A.y, 2));
+    }
+
+    void print() {
+        cout << "Diem A: " << A << endl;
+        cout << "Diem B: " << B << endl;
+        cout << "Do dai cua doan thang: " << tinhDoDai() << endl;
+    }
+
+    void xuatPhuongTrinh() {
+        int a = B.y - A.y;
+        int b = A.x - B.x;
+        int c = -a * A.x - b * A.y;
+        cout << "Phuong trinh cua duong thang: " 
+             << a << "x + " << b << "y + " << c << " = 0" << endl;
+    }
+};
+
+int main() {
+    Line line;
+    cin >> line;
+    line.print();
+    line.xuatPhuongTrinh();
+    return 0;
+}
