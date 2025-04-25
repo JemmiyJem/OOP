@@ -1,0 +1,77 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Point2D {
+public:
+    int x, y;
+
+    void set(int a, int b) {
+        x = a;
+        y = b;
+    }
+};
+
+class TamGiac {
+private:
+    Point2D A, B, C;
+
+public:
+    void set(int x1, int y1, int x2, int y2, int x3, int y3) {
+        A.set(x1, y1);
+        B.set(x2, y2);
+        C.set(x3, y3);
+    }
+
+    float tinhChuVi() {
+        float AB = sqrt(pow(B.x - A.x, 2) + pow(B.y - A.y, 2));
+        float BC = sqrt(pow(C.x - B.x, 2) + pow(C.y - B.y, 2));
+        float CA = sqrt(pow(A.x - C.x, 2) + pow(A.y - C.y, 2));
+        return AB + BC + CA;
+    }
+
+    float tinhDienTich() {
+        float AB = sqrt(pow(B.x - A.x, 2) + pow(B.y - A.y, 2));
+        float BC = sqrt(pow(C.x - B.x, 2) + pow(C.y - B.y, 2));
+        float CA = sqrt(pow(A.x - C.x, 2) + pow(A.y - C.y, 2));
+        float p = (AB + BC + CA) / 2;
+        return sqrt(p * (p - AB) * (p - BC) * (p - CA));
+    }
+
+    int phanLoai() {
+        float AB = sqrt(pow(B.x - A.x, 2) + pow(B.y - A.y, 2));
+        float BC = sqrt(pow(C.x - B.x, 2) + pow(C.y - B.y, 2));
+        float CA = sqrt(pow(A.x - C.x, 2) + pow(A.y - C.y, 2));
+        if (AB == BC && BC == CA)
+            return 4; // Tam giác đều
+        if (AB == BC || BC == CA || CA == AB)
+            return 2; // Tam giác cân
+        if ((pow(AB, 2) + pow(BC, 2) == pow(CA, 2)) ||
+            (pow(AB, 2) + pow(CA, 2) == pow(BC, 2)) ||
+            (pow(BC, 2) + pow(CA, 2) == pow(AB, 2))) {
+            if (AB == BC || BC == CA || CA == AB)
+                return 3; // Vuông cân
+            return 1; // Vuông
+        }
+        return 0; // Tam giác thường
+    }
+
+    void print() {
+        cout << "Chu vi: " << tinhChuVi() << endl;
+        cout << "Dien tich: " << tinhDienTich() << endl;
+        cout << "Loai tam giac: " << phanLoai() << endl;
+    }
+};
+
+int main() {
+    TamGiac tg;
+    int x1, y1, x2, y2, x3, y3;
+    cin >> x1 >> y1;
+    cin >> x2 >> y2;
+    cin >> x3 >> y3;
+
+    tg.set(x1, y1, x2, y2, x3, y3);
+    tg.print();
+
+    return 0;
+}
